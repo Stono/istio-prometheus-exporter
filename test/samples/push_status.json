@@ -1,0 +1,31 @@
+{
+    "ProxyStatus": {
+        "pilot_conflict_outbound_listener_tcp_over_current_tcp": {
+            "0.0.0.0:2181": {
+                "proxy": "gen-recommendation-service-5dbbbb67d4-wsvfg.gen-recommendation-service",
+                "message": "Listener=0.0.0.0:2181 AcceptedTCP=zookeeper-headless.kafka.svc.cluster.local RejectedTCP=zookeeper-headless.search-solr.svc.cluster.local TCPServices=1"
+            },
+            "0.0.0.0:2888": {
+                "proxy": "gen-recommendation-service-5dbbbb67d4-wsvfg.gen-recommendation-service",
+                "message": "Listener=0.0.0.0:2888 AcceptedTCP=zookeeper-headless.kafka.svc.cluster.local RejectedTCP=zookeeper-headless.search-solr.svc.cluster.local TCPServices=1"
+            },
+            "0.0.0.0:3888": {
+                "proxy": "gen-recommendation-service-5dbbbb67d4-wsvfg.gen-recommendation-service",
+                "message": "Listener=0.0.0.0:3888 AcceptedTCP=zookeeper-headless.kafka.svc.cluster.local RejectedTCP=zookeeper-headless.search-solr.svc.cluster.local TCPServices=1"
+            }
+        },
+        "pilot_eds_no_instances": {
+            "outbound|49153||platform-thousandeyes-service.core-system.svc.cluster.local": {},
+            "outbound|80||app.portal-dealer-settings.svc.cluster.local": {},
+            "outbound|80||kafka-prom-exporter.kafka.svc.cluster.local": {},
+            "outbound|9080||app.portal-dealer-settings.svc.cluster.local": {}
+        },
+        "pilot_endpoint_not_ready": {
+            "portal-dealer-settings-7658597df7-6rphs.portal-dealer-settings": {
+                "proxy": "portal-dealer-settings-7658597df7-6rphs.portal-dealer-settings"
+            }
+        }
+    },
+    "Start": "2018-11-07T18:03:48.125788516Z",
+    "End": "2018-11-07T18:04:01.898070294Z"
+}

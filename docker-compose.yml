@@ -1,0 +1,15 @@
+version: '3.2'
+
+services:
+  app:
+    image: "eu.gcr.io/at-artefacts/platform-auth-proxy:${IMAGE_TAG:-latest}"
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        GO_DEPENDENCY_LABEL_BASE_NODEJS: "${GO_DEPENDENCY_LABEL_BASE_NODEJS:-latest}"
+      cache_from:
+        - "eu.gcr.io/at-artefacts/platform-auth-proxy:latest"
+    environment:
+      DEBUG: "*"
