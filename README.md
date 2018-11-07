@@ -19,13 +19,18 @@ pilot_conflict_outbound_listener_tcp_over_current_tcp{listener="0.0.0.0:3888",ac
 Install the dependencies with `npm install`.  Once done, you can do the following:
 
 ### npm run start
-Will start the server, on port 8080, with metrics available on `/metrics`;
+You'll need to set up a port-forward for pilot if you're running locally: `kubectl --namespace=istio-system port-forward $(kubectl --namespace=istio-system get pods -l istio=pilot | tail -n 1 | awk '{print $1}') 8081:808`
+
+Then do `npm run start`, which will start the server, on port 8080, with metrics available on `/metrics`;
 
 ### npm run build
 Will compile the typescript to javascript into the `/built` folder.  You largely never need to do this unlesss debugging build issues.
 
 ### npm run test
 Will run the linting and tests.
+
+## Running on a kubernetes cluster
+I've not got round to writing any manifests just yet, sorry.
 
 ## Release History
 _(Nothing yet)_
