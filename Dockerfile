@@ -1,9 +1,8 @@
-ARG GO_DEPENDENCY_LABEL_BASE_NODEJS
-FROM eu.gcr.io/at-artefacts/platform-base-nodejs:$GO_DEPENDENCY_LABEL_BASE_NODEJS
+FROM node:8.12.0-alpine
 
-COPY --chown=atcloud:atcloud package.json $APP_DIR
+COPY package.json .
 RUN npm install
-COPY --chown=atcloud:atcloud . $APP_DIR
+COPY . .
 RUN ./node_modules/.bin/grunt ci
 
 ENV DEBUG=*

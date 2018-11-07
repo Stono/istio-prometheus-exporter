@@ -2,14 +2,14 @@ version: '3.2'
 
 services:
   app:
-    image: "eu.gcr.io/at-artefacts/platform-auth-proxy:${IMAGE_TAG:-latest}"
+    image: "istio-prometheus-exporter"
     restart: always
+    network_mode: host
     build:
       context: .
       dockerfile: Dockerfile
-      args:
-        GO_DEPENDENCY_LABEL_BASE_NODEJS: "${GO_DEPENDENCY_LABEL_BASE_NODEJS:-latest}"
-      cache_from:
-        - "eu.gcr.io/at-artefacts/platform-auth-proxy:latest"
     environment:
       DEBUG: "*"
+      ISTIO_PILOT_ADDRESS: http://127.0.0.1:8081 # kubectl --namespace=istio-system port-forward <pod> 8081:8080
+    ports:
+      - 8080:8080
