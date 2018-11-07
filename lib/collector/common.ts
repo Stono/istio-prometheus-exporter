@@ -13,7 +13,7 @@ export default class SimpleGauge implements ISimpleGauge {
 
   private gauge: any;
 
-  constructor(metrics: IMetrics, name: string, description: string, labels: string[]) {
+  constructor(metrics: IMetrics, name: string, description: string, labels: string[] = []) {
     const client = metrics.getClient();
 
     this.gauge = new client.Gauge({

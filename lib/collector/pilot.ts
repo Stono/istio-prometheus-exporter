@@ -7,6 +7,19 @@ export interface ISimpleGaugeWithProxyStatus extends ISimpleGauge {
 }
 
 class TcpOverTcp extends SimpleGauge implements ISimpleGaugeWithProxyStatus {
+  constructor(metrics: IMetrics) {
+    super(
+      metrics,
+      'pilot_conflict_outbound_listener_tcp_over_current_tcp',
+      'Multiple TCP services requesting the same port',
+      [
+        'listener',
+        'accepted',
+        'rejected'
+      ]
+    )
+  }
+
   fromProxyStatus(proxyStatus: any): void {
     const data = proxyStatus.pilot_conflict_outbound_listener_tcp_over_current_tcp;
 
@@ -24,6 +37,29 @@ class TcpOverTcp extends SimpleGauge implements ISimpleGaugeWithProxyStatus {
   }
 }
 
+class EdsNoInstances extends SimpleGauge implements ISimpleGaugeWithProxyStatus {
+  constructor(metrics: IMetrics) {
+    super(
+      metrics,
+      'pilot_eds_no_instances',
+      'Clusters with no instances',
+      ['cluster']
+    )
+  }
+
+  fromProxyStatus(proxyStatus: any): void {
+    const data = proxyStatus.pilot_eds_no_instances;
+
+    if (!data) {
+      return;
+    }
+
+    Object.keys(data).forEach((cluster) => {
+      this.increment(cluster);
+    });
+  }
+}
+
 export default class PilotCollector implements ICollector {
 
   private gauges: ISimpleGaugeWithProxyStatus[] = [];
@@ -33,16 +69,8 @@ export default class PilotCollector implements ICollector {
   constructor(metrics: IMetrics, pilotAddress: string) {
     this.pilotAddress = pilotAddress;
 
-    this.gauges.push(new TcpOverTcp(
-      metrics,
-      'pilot_conflict_outbound_listener_tcp_over_current_tcp',
-      'Multiple TCP services requesting the same port',
-      [
-        'listener',
-        'accepted',
-        'rejected'
-      ]
-    ));
+    this.gauges.push(new TcpOverTcp(metrics));
+    this.gauges.push(new EdsNoInstances(metrics));
   }
 
   async gather(): Promise<void> {

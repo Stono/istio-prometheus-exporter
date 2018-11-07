@@ -28,6 +28,22 @@ describe('Collector: Pilot', () => {
     collector = new PilotCollector(metrics, 'http://127.0.0.1:1234');
   });
 
+  describe('pilot_eds_no_instances', () => {
+    let metric;
+    beforeEach(async () => {
+      await collector.gather();
+      metric = metrics.getClient().register.getSingleMetric('pilot_eds_no_instances');
+    });
+    it('should have keys for each conflict', async () => {
+      should(Object.keys(metric.hashMap)).eql([
+        'cluster:outbound|49153||platform-thousandeyes-service.core-system.svc.cluster.local',
+        'cluster:outbound|80||app.portal-dealer-settings.svc.cluster.local',
+        'cluster:outbound|80||kafka-prom-exporter.kafka.svc.cluster.local',
+        'cluster:outbound|9080||app.portal-dealer-settings.svc.cluster.local'
+      ]);
+    });
+  });
+
   describe('pilot_conflict_outbound_listener_tcp_over_current_tcp', () => {
     let metric;
     beforeEach(async () => {

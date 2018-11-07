@@ -15,6 +15,16 @@ pilot_conflict_outbound_listener_tcp_over_current_tcp{listener="0.0.0.0:2888",ac
 pilot_conflict_outbound_listener_tcp_over_current_tcp{listener="0.0.0.0:3888",accepted="zookeeper-headless.kafka.svc.cluster.local",rejected="zookeeper-headless.search-solr.svc.cluster.local"} 1 1541618867468
 ```
 
+### pilot_eds_no_instances
+This metric will tell you if you have clusters with no endpoints
+
+```
+pilot_eds_no_instances{cluster="outbound|49153||platform-thousandeyes-service.core-system.svc.cluster.local"} 1 1541621506286
+pilot_eds_no_instances{cluster="outbound|80||app.portal-dealer-settings.svc.cluster.local"} 1 1541621506286
+pilot_eds_no_instances{cluster="outbound|80||kafka-prom-exporter.kafka.svc.cluster.local"} 1 1541621506286
+pilot_eds_no_instances{cluster="outbound|9080||app.portal-dealer-settings.svc.cluster.local"} 1 1541621506286
+```
+
 ## Getting Started
 Install the dependencies with `npm install`.  Once done, you can do the following:
 
